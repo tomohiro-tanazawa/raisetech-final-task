@@ -116,6 +116,23 @@ Resources:
           Value: EC2instanceC
 
 #--------------------------------------#
+#Associate EIP with EC2 instances
+#--------------------------------------#
+  EIPforEC2InstanceA:
+    Type: AWS::EC2::EIPAssociation
+    Properties: 
+      EIP: 3.115.185.117
+      InstanceId: !Ref EC2InstanceA
+    DependsOn: EC2InstanceA
+
+  EIPforEC2InstanceC:
+    Type: AWS::EC2::EIPAssociation
+    Properties: 
+      EIP: 35.79.238.169
+      InstanceId: !Ref EC2InstanceC
+    DependsOn: EC2InstanceC
+
+#--------------------------------------#
 #Create S3Bucket
 #--------------------------------------#
   S3Bucket:
@@ -131,6 +148,9 @@ Resources:
       VersioningConfiguration:
         Status: Enabled
 
+#--------------------------------------#
+#Outputs
+#--------------------------------------#
 Outputs:
   EC2InstanceA:
     Description: EC2InstanceA
