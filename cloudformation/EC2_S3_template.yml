@@ -16,17 +16,7 @@ Metadata:
             - InstanceTypeParameter
             - EC2InstanceVolumeType
             - EC2InstanceVolumeSize
-      - Label:
-          default: RDS configration
-          Parameters:
-            - DBAllocatedStorage
-            - MaxAllocatedStorage
-            - DBInstanceClass
-            - DBEngine
-            - DBEngineVersion
-            - DBName
-            - DBUsername
-            - DBPassword
+
       - Label:
           default: S3Bucket configration
           Parameters:
@@ -62,57 +52,6 @@ Parameters:
       - t2.micro
       - t2.small
     Description: Enter t2.micro or t2.small.
-#--------------------------------------#
-#RDS Parameters
-#--------------------------------------#
-  DBName:
-    Default: tanazawadb
-    Description: My database 
-    Type: String
-    MinLength: '1'
-    MaxLength: '64'
-    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
-    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters.
-  DBInstanceClass:
-    Default: db.t3.micro
-    Description: DB instance class
-    Type: String
-    ConstraintDescription: Must select a valid DB instance type.
-  DBAllocatedStorage:
-    Default: 20
-    Description: The size of the database (GiB)
-    Type: Number
-    MinValue: 20
-    MaxValue: 65536
-    ConstraintDescription: must be between 20 and 65536 GiB.
-  MaxAllocatedStorage:
-    Type: Number
-    Default: 100
-    Description: Maximum size of the database (GiB)
-  DBEngine:
-    Type: String
-    Default: mysql
-  DBEngineVersion:
-    Type: String
-    Default: 8.0.28
-  DBUsername:
-    NoEcho: 'true'
-    Description: Username for MySQL database access
-    Type: String
-    Default: tanazawa
-    MinLength: '1'
-    MaxLength: '16'
-    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
-    ConstraintDescription: must begin with a letter and contain only alphanumeric characters.
-  DBPassword:
-    NoEcho: 'true'
-    Description: Password MySQL database access
-    Type: String
-    Default: tanazawa1112
-    MinLength: '8'
-    MaxLength: '41'
-    AllowedPattern: '[a-zA-Z0-9]*'
-    ConstraintDescription: must contain only alphanumeric characters.
 
 #--------------------------------------#
 #S3 Parameters
@@ -175,50 +114,6 @@ Resources:
       Tags: 
         - Key: Name
           Value: EC2instanceC
-
-#--------------------------------------#
-#Create RDS:MultiAZ
-#--------------------------------------#
-  RDSinMultiAZ:
-    Type: AWS::RDS::DBInstance
-    Properties: 
-      AllocatedStorage: !Ref DBAllocatedStorage
-      AllowMajorVersionUpgrade: True
-      #AvailabilityZone: ap-northeast-1a
-      BackupRetentionPeriod: 0
-      DBInstanceClass: !Ref DBInstanceClass
-      DBName: !Ref DBName
-      DBSubnetGroupName: !Ref DBSubnetGroups
-      Engine: !Ref DBEngine
-      EngineVersion: !Ref DBEngineVersion
-      MasterUsername: !Ref DBUsername
-      MasterUserPassword: !Ref DBPassword
-      MaxAllocatedStorage: !Ref MaxAllocatedStorage
-      MultiAZ: True
-      Port: 3306
-      PubliclyAccessible: False
-      StorageEncrypted: False
-      StorageType: gp2
-      VPCSecurityGroups: 
-        - !ImportValue RDS-SecurityGroup
-      Tags: 
-        - Key: Name
-          Value: MultiAZ RDS
-    DeletionPolicy: Delete
-      
-  DBSubnetGroups:
-    Type: AWS::RDS::DBSubnetGroup
-    Properties: 
-      DBSubnetGroupDescription: Subnets for MultiAZ RDS
-      DBSubnetGroupName: DBSubnetGroups
-      SubnetIds: 
-        - !ImportValue PrivateSubnetA
-        - !ImportValue PrivateSubnetC
-      Tags: 
-        - Key: Name
-          Value: RDS in PrivateSubnet1A and 1C
-
-
 
 #--------------------------------------#
 #Create S3Bucket
