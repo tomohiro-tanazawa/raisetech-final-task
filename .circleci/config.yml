@@ -21,9 +21,9 @@ jobs:
           name: deploy Cloudformation
           command: |
             set -x
-            aws cloudformation deploy --stack-name sampleStackFromCircleCI --template-file cloudformation/Network_template.yml
-            aws cloudformation deploy --stack-name sampleStackFromCircleCI --template-file cloudformation/SecurityGroup_template.yml
-            aws cloudformation deploy --stack-name sampleStackFromCircleCI --template-file cloudformation/EC2_S3_template.yml
+            aws cloudformation deploy --stack-name NetworkStackFromCircleCI --template-file cloudformation/Network_template.yml
+            aws cloudformation deploy --stack-name SecurityGroupStackFromCircleCI --template-file cloudformation/SecurityGroup_template.yml
+            aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml
 
 workflows:
   raisetech-task-final:
