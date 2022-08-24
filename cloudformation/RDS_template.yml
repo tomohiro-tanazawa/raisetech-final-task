@@ -5,16 +5,16 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-      default: RDS configration
-      Parameters:
-        - DBAllocatedStorage
-        - MaxAllocatedStorage
-        - DBInstanceClass
-        - DBEngine
-        - DBEngineVersion
-        - DBName
-        - DBUsername
-        - DBPassword
+          default: RDS configration
+          Parameters:
+            - DBAllocatedStorage
+            - MaxAllocatedStorage
+            - DBInstanceClass
+            - DBEngine
+            - DBEngineVersion
+            - DBName
+            - DBUsername
+            - DBPassword
 
 Parameters:
   DBName:
