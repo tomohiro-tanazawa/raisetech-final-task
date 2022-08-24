@@ -22,18 +22,15 @@ jobs:
           command: |
             set -x
             aws cloudformation deploy --stack-name NetworkStackFromCircleCI --template-file cloudformation/Network_template.yml
+
             aws cloudformation wait stack-create-complete --stack-name NetworkStackFromCircleCI 
-            
             aws cloudformation deploy --stack-name SecurityGroupStackFromCircleCI --template-file cloudformation/SecurityGroup_template.yml
-            aws cloudformation wait stack-create-complete --stack-name SecurityGroupStackFromCircleCI 
-            
-            aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml
-            aws cloudformation wait stack-create-complete --stack-name EC2andS3StackFromCircleCI 
-            
-            aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml
-            aws cloudformation wait stack-create-complete --stack-name RDSStackFromCircleCI 
-            
+
+            aws cloudformation wait stack-create-complete --stack-name SecurityGroupStackFromCircleCI            
+            aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml          
+            aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml            
             aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
+
             aws cloudformation wait stack-create-complete --stack-name ALBFromCircleCI
 
           no_output_timeout: 15m
