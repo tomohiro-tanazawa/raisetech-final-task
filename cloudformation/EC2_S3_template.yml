@@ -27,12 +27,12 @@ Parameters:
 #--------------------------------------#
 #KeyPair Parameters
 #--------------------------------------#
-  KeyPairName:
-    Type: String
-    Default: myCFnKeyPair  
-  KeyPairType:
-    Type: String
-    Default: rsa
+  # KeyName:
+  #   Type: String
+  #   Default: myCFnKeyPair  
+  # KeyPairType:
+  #   Type: String
+  #   Default: rsa
 #--------------------------------------#
 #EC2 Parameters
 #--------------------------------------#
@@ -62,17 +62,6 @@ Parameters:
 
 Resources:
 #--------------------------------------#
-#Create KeyPair
-#--------------------------------------#
-  KeyPair:
-      Type: AWS::EC2::KeyPair
-      Properties: 
-        KeyName: !Ref KeyPairName
-        KeyType: !Ref KeyPairType
-        Tags: 
-          - Key: Name
-            Value: !Ref KeyPairName
-#--------------------------------------#
 #Create EC2 Instances
 #--------------------------------------#
   EC2InstanceA:
@@ -87,7 +76,7 @@ Resources:
             VolumeSize: !Ref EC2InstanceVolumeSize
       ImageId: !Ref ImageId
       InstanceType: !Ref InstanceTypeParameter
-      KeyName: !Ref KeyPair
+      KeyName: tanazawa_aws
       SecurityGroupIds: 
         - !ImportValue EC2-SecurityGroup
       SubnetId: !ImportValue PublicSubnetA
@@ -107,7 +96,7 @@ Resources:
             VolumeSize: !Ref EC2InstanceVolumeSize
       ImageId: !Ref ImageId
       InstanceType: !Ref InstanceTypeParameter
-      KeyName: !Ref KeyPair
+      KeyName: tanazawa_aws
       SecurityGroupIds: 
         - !ImportValue EC2-SecurityGroup
       SubnetId: !ImportValue PublicSubnetC

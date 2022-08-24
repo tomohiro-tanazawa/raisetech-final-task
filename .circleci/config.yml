@@ -34,7 +34,9 @@ jobs:
             aws cloudformation wait stack-create-complete --stack-name RDSStackFromCircleCI 
             
             aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
-            aws cloudformation wait stack-create-complete --stack-name ALBFromCircleCI 
+            aws cloudformation wait stack-create-complete --stack-name ALBFromCircleCI
+
+          no_output_timeout: 15m
 
 
 workflows:
