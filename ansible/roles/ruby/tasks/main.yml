@@ -23,7 +23,7 @@
 - name: Install rbenv
   git:
     repo: "{{ rbenv_download_url }}"
-    dest: "{{ rbenv_path }}"
+    dest: /usr/local/rbenv
 
 - name: Edit bashrc
   template:
