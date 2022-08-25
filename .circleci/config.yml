@@ -52,6 +52,6 @@ workflows:
   raisetech-task-final:
     jobs:
       - execute-cloudformation
-      - execute-ansible
-        requires:
-          - "execute-cloudformation"
+      - execute-ansible:
+          requires:
+            - "execute-cloudformation"
