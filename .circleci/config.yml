@@ -40,7 +40,7 @@ jobs:
           fingerprints:
             - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0""
       - ansible-playbook/install:
-          version: 2.13.2
+          version: 2.10.7
       - ansible-playbook/playbook:
           playbook: ansible/playbook.yml
           playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa
