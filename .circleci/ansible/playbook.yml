@@ -7,5 +7,5 @@
     - { role: nginx, tags: nginx }
     - { role: ruby, tags: ruby }
     - { role: directory, tags: directory }
-    - { role: rds, tags: rds }
+    # - { role: rds, tags: rds }
     
