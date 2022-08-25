@@ -1,0 +1,5 @@
+rbenv_download_url: 'https://github.com/sstephenson/rbenv.git'
+ruby_build_download_url: 'https://github.com/sstephenson/ruby-build.git'
+rbenv_path: "{{ ansible_user_dir }}/.rbenv"
+ruby_version: 3.0.0
+ruby_dir: '{{ rbenv_path }}/versions/{{ ruby_version }}'

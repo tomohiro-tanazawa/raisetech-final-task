@@ -1,0 +1,8 @@
+---
+- name: Registration nodejs on Yum repo
+  shell: curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+
+- name: Install nodejs from yum
+  yum:
+    name: nodejs
+    state: latest

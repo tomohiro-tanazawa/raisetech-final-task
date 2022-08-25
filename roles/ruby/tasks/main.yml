@@ -1,0 +1,44 @@
+---
+- name: Install Ruby dependences packages
+  yum:
+    name: "{{ dependences }}"
+  vars:
+    dependences:
+      - gcc-c++
+      - patch
+      - openssl-devel
+      - libyaml-devel
+      - libffi-devel
+      - libicu-devel
+      - libxml2
+      - libxslt
+      - libxml2-devel
+      - libxslt-devel
+      - zlib-devel
+      - readline-devel
+      - ImageMagick
+      - ImageMagick-devel
+    state: latest
+
+- name: Install rbenv
+  git:
+    repo: "{{ rbenv_download_url }}"
+    dest: "{{ rbenv_path }}"
+
+- name: Edit bashrc
+  template:
+    src: roles/ruby/templates/rbenv_system.sh.j2
+    dest: /etc/profile.d/rbenv.sh
+    owner: ec2-user
+    group: ec2-user
+
+- name: Install ruby_build
+  git:
+    repo: "{{ ruby_build_download_url }}"
+    dest: /usr/local/rbenv/plugins/ruby-build
+
+- name: Install ruby
+  shell: bash -lc "rbenv install -s {{ ruby_version }}"
+
+- name: set global ruby version
+  shell: bash -lc "rbenv global {{ ruby_version }} && rbenv rehash"

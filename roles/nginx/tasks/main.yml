@@ -1,0 +1,21 @@
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Create Nginx repo
+  template:
+    src: roles/nginx/templates/nginx.repo.j2
+    dest: /etc/yum.repos.d/nginx.repo
+
+- name: Install nginx
+  yum:
+    name: nginx
+    state: latest
+
+- name: Configlation for Nginx
+  vars:
+    vars_files: roles/nginx/vars/main.yml
+  template:
+    src: roles/nginx/templates/raisetech-live8-sample-app.conf.j2
+    dest: /etc/nginx/conf.d/raisetech-live8-sample-app.conf
