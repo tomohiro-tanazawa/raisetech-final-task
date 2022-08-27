@@ -146,10 +146,23 @@ Outputs:
     Value: !Ref EC2InstanceA
     Export:
       Name: EC2InstanceA
+  
+  PublicIPforEC2A:
+    Description: Public IP address for EC2A
+    Value: !GetAtt EC2InstanceA.PublicIp
+    Export:
+      Name: EIPforEC2A
 
   EC2InstanceC:
     Description: EC2InstanceC
     Value: !Ref EC2InstanceC
     Export:
       Name: EC2InstanceC
+
+  IPforEC2C:
+    Description: Public IP address for EC2C
+    Value: !GetAtt EC2InstanceC.PublicIp
+    Export:
+      Name: EIPforEC2C
+
 
