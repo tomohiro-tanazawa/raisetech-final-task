@@ -4,7 +4,7 @@ upstream unicorn {
 
 server {
   listen 80;
-  server_name {{ ansible_eth0.ipv4.address }};
+  server_name {{ ansible_default_ipv4.address }};
 
   access_log /var/log/nginx/sample_access.log;
   error_log /var/log/nginx/sample_error.log;
