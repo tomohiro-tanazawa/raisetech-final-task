@@ -1,5 +1,5 @@
 ---
-- name: Make directory for application to deploy
+- name: Make a directory for Rails app
   file:
     path: /var/www/raisetech-live8-sample-app
     state: directory
@@ -7,7 +7,7 @@
     group: ec2-user
     mode: "775"
 
-- name: clone git repository
+- name: Clone git repository
   git:
     repo: https://github.com/tomohiro-tanazawa/raisetech-live8-sample-app.git
     dest: /var/www/raisetech-live8-sample-app

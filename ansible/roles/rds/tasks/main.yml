@@ -1,5 +1,0 @@
----
-- name: install MySQL client
-  yum:
-    name: mysql
-    state: latest

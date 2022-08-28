@@ -6,6 +6,5 @@
     - { role: nodejs, tags: nodejs }
     - { role: nginx, tags: nginx }
     - { role: ruby, tags: ruby }
-    - { role: directory, tags: directory }
-    # - { role: rds, tags: rds }
+    - { role: git_clone, tags: git_clone }
     - { role: rails, tags: rails }
