@@ -1,7 +1,7 @@
 ---
 - name: Import database.yml
   vars:
-    rds_endpoint: $RDS_ENDPOINT
+    vars_files: roles/database/vars/main.yml
   template:
     src: roles/database/templates/database.yml.j2
     dest: /var/www/raisetech-live8-sample-app/config/database.yml
