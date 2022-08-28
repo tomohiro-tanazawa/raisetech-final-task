@@ -105,3 +105,13 @@ Resources:
       Tags: 
         - Key: Name
           Value: RDS in PrivateSubnet1A and 1C
+
+#--------------------------------------#
+#Outputs
+#--------------------------------------#
+Outputs:
+  RDS:
+    Description: RDSEndpoint
+    Value: !GetAtt RDSinMultiAZ.Endpoint.Address
+    Export:
+      Name: RDSinstanceEndpoint

@@ -7,6 +7,7 @@ executors:
 
 orbs:
   aws-cli: circleci/aws-cli@3.1.1
+  ansible-playbook: orbss/ansible-playbook@0.0.5
 
 jobs:
   execute-cloudformation:
@@ -22,24 +23,34 @@ jobs:
           command: |
             set -x
             aws cloudformation deploy --stack-name NetworkStackFromCircleCI --template-file cloudformation/Network_template.yml
-            aws cloudformation wait stack-create-complete --stack-name NetworkStackFromCircleCI 
-            
-            aws cloudformation deploy --stack-name SecurityGroupStackFromCircleCI --template-file cloudformation/SecurityGroup_template.yml
-            aws cloudformation wait stack-create-complete --stack-name SecurityGroupStackFromCircleCI 
-            
-            aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml
-            aws cloudformation wait stack-create-complete --stack-name EC2andS3StackFromCircleCI 
-            
+            aws cloudformation deploy --stack-name EC2andALBSecurityGroupStackFromCircleCI --template-file cloudformation/EC2andALBSG_template.yml
+            aws cloudformation deploy --stack-name RDSSecurityGroupStackFromCircleCI --template-file cloudformation/RDSSG_template.yml
+            aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml          
             aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml
-            aws cloudformation wait stack-create-complete --stack-name RDSStackFromCircleCI 
-            
             aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
-            aws cloudformation wait stack-create-complete --stack-name ALBFromCircleCI
-
           no_output_timeout: 15m
+  execute-ansible:
+    executor: ansible-playbook/default
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0""
+      - ansible-playbook/install:
+          version: 2.10.7
+      - ansible-playbook/playbook:
+          playbook: ansible/playbook.yml
+          playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa --tags="rails","nginx"
+  
+
+
+
 
 
 workflows:
   raisetech-task-final:
     jobs:
       - execute-cloudformation
+      - execute-ansible:
+          requires:
+            - "execute-cloudformation"

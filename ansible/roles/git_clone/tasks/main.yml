@@ -1,0 +1,13 @@
+---
+- name: Make a directory for Rails app
+  file:
+    path: /var/www/raisetech-live8-sample-app
+    state: directory
+    owner: ec2-user
+    group: ec2-user
+    mode: "775"
+
+- name: Clone git repository
+  git:
+    repo: https://github.com/tomohiro-tanazawa/raisetech-live8-sample-app.git
+    dest: /var/www/raisetech-live8-sample-app
