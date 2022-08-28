@@ -159,7 +159,7 @@ Outputs:
     Export:
       Name: EC2InstanceC
 
-  IPforEC2C:
+  PublicIPforEC2C:
     Description: Public IP address for EC2C
     Value: !GetAtt EC2InstanceC.PublicIp
     Export:
