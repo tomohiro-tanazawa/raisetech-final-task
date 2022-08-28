@@ -1,9 +1,4 @@
 ---
-- name: Set up custom environment variable "RDS_ENDPOINT"
-  shell: |
-    var1=$(aws cloudformation describe-stacks --region ap-northeast-1 --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
-    echo 'export RDS_ENDPOINT="$VAR1"' >> $CIRCLE_SHELL_ENV
-
 - name: Import database.yml
   template:
     src: rokes/rails/templates/database.yml.j2
