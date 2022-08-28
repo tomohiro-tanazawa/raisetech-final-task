@@ -30,7 +30,7 @@ jobs:
             aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
             
             var1=$(aws cloudformation describe-stacks --region ap-northeast-1 --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
-            echo 'export RDS_ENDPOINT="$VAR1"' >> $CIRCLE_SHELL_ENV
+            echo 'export RDS_ENDPOINT="$VAR1"' >> $BASH_ENV
           no_output_timeout: 15m
   execute-ansible:
     executor: ansible-playbook/default
