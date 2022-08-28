@@ -14,8 +14,18 @@
   args: 
     chdir: /var/www/raisetech-live8-sample-app
 
-- name: install MySQL client
+- name: install mysql
   yum:
     name: mysql
+    state: latest
+
+- name: install mysql-devel
+  yum:
+    name: mysql-devel
+    state: latest
+
+- name: install mysql aaaa
+  yum:
+    name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
     state: latest
 
