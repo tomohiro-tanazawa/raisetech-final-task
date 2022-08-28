@@ -9,11 +9,6 @@
   args: 
     chdir: /var/www/raisetech-live8-sample-app
 
-- name: bundle install
-  shell: bash -lc "bundle install"
-  args: 
-    chdir: /var/www/raisetech-live8-sample-app
-
 - name: install mysql
   yum:
     name: mysql
@@ -34,5 +29,9 @@
     name: mysql-community-server
     state: latest
 
+- name: bundle install
+  shell: bash -lc "bundle install"
+  args: 
+    chdir: /var/www/raisetech-live8-sample-app
 
 
