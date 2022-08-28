@@ -1,0 +1,18 @@
+---
+- name: Install Gem
+  shell: bash -lc "gem install bundle"
+  args: /var/www/raisetech-live8-sample-app
+
+- name: Install Rails
+  shell: bash -lc "gem install rails -v 6.1.3"
+  args: /var/www/raisetech-live8-sample-app
+
+- name: bundle install
+  shell: bash -lc "bundle install"
+  args: /var/www/raisetech-live8-sample-app
+
+- name: install MySQL client
+  yum:
+    name: mysql
+    state: latest
+
