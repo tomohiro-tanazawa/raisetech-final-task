@@ -9,6 +9,12 @@
   args: 
     chdir: /var/www/raisetech-live8-sample-app
 
+# mysqlをインストールする際にGPGキーが必要となる。
+# これをrpm_keyモジュールを使用してインポートする。
+- name: RPM-GPG-KEY-mysql-2022 installed
+  rpm_key: 
+    key: "https://repo.mysql.com/RPM-GPG-KEY-mysql-2022"
+
 - name: install mysql
   yum:
     name: mysql
