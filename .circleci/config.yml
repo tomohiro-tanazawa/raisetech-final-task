@@ -37,7 +37,7 @@ jobs:
             echo 'rds_endpoint: '{$var1} > env.txt
       
       - store_artifacts:
-        path: env.txt
+          path: env.txt
       
   execute-ansible:
     executor: ansible-playbook/default
