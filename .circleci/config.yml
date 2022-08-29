@@ -1,4 +1,6 @@
 version: 2.1
+
+# jobs stepsの実行環境を定義
 executors:
   deploy_container:
     docker:
@@ -29,15 +31,17 @@ jobs:
             aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml
             aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
           no_output_timeout: 15m
-
-      - run:
-          name: output rds endpoint
-          command: |
-            var1=$(aws cloudformation describe-stacks --region ap-northeast-1 --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
-            echo 'rds_endpoint: '{$var1} > env.txt
       
-      - store_artifacts:
-          path: env.txt
+      - run: mkdir -p workspace
+      - run:
+          command: |
+            var1=$(aws cloudformation describe-stacks --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
+            echo "'rds_endpoint: '${var1}" > workspace/rds-output.yml
+
+      - persist_to_workspace:
+          root: workspace
+          paths: 
+            - rds-output
       
   execute-ansible:
     executor: ansible-playbook/default
@@ -51,11 +55,6 @@ jobs:
       - ansible-playbook/playbook:
           playbook: ansible/playbook.yml
           playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa --tags="database"
-  
-
-
-
-
 
 workflows:
   raisetech-task-final:
