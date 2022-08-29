@@ -28,12 +28,17 @@ jobs:
             aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml          
             aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml
             aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
-            
+
       - run:
           name: output rds endpoint
           command: |
             var1=$(aws cloudformation describe-stacks --region ap-northeast-1 --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
-            echo 'rds_endpoint="{$var1}"' > ansible/roles/database/vars/main.yml
+            echo 'rds_endpoint: '{$var1} > env.txt
+      
+      - store_artifacts:
+        path: env.txt
+      
+                no_o  path: 
 
           no_output_timeout: 15m
   execute-ansible:
