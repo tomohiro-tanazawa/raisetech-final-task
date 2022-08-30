@@ -48,7 +48,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/workspace # 絶対パスまたはworking_directoryからの相対パスを記述
-      - run: cp /tmp/workspace/rds-output.yml ~/project/ansible/roles/database/vars
+      - run: cp /tmp/workspace/rds-output.yml ~/project/ansible/roles/database/vars/main.yml
       - add_ssh_keys:
           fingerprints:
             - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0""
