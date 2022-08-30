@@ -5,7 +5,7 @@ executors:
   deploy_container:
     docker:
       - image: circleci/python:3.8.7
-    working_directory: ~/work
+    working_directory: /tmp
 
 orbs:
   aws-cli: circleci/aws-cli@3.1.1
@@ -29,19 +29,18 @@ jobs:
             aws cloudformation deploy --stack-name RDSSecurityGroupStackFromCircleCI --template-file cloudformation/RDSSG_template.yml
             aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml          
             aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml
-            aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
           no_output_timeout: 15m
       
       - run: mkdir -p workspace
       - run:
           command: |
             var1=$(aws cloudformation describe-stacks --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
-            echo "'rds_endpoint: '${var1}" > workspace/rds-output.yml
+            echo "rds_endpoint: ${var1}" > workspace/rds-output.yml
 
       - persist_to_workspace:
           root: workspace
           paths: 
-            - rds-output
+            - rds-output.yml
       
   execute-ansible:
     executor: ansible-playbook/default
