@@ -37,15 +37,17 @@ jobs:
             var1=$(aws cloudformation describe-stacks --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
             echo "rds_endpoint: ${var1}" > workspace/rds-output.yml
 
-      - persist_to_workspace:
-          root: workspace
+      - persist_to_workspace: # workspaceを作成
+          root: workspace # 絶対パスまたはworking_directoryからの相対パスを記述
           paths: 
-            - rds-output.yml
+            - rds-output.yml # 上記rootからの相対パスを記述
       
   execute-ansible:
     executor: ansible-playbook/default
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace # 絶対パスまたはworking_directoryからの相対パスを記述
       - add_ssh_keys:
           fingerprints:
             - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0""
