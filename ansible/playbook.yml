@@ -1,11 +1,10 @@
 ---
 - hosts: ec2
-  become: yes
   roles:
-    - { role: git, tags: git }
-    - { role: nodejs, tags: nodejs }
-    - { role: nginx, tags: nginx }
-    - { role: ruby, tags: ruby }
-    - { role: git_clone, tags: git_clone }
+    - { role: git, tags: git, become: yes }
+    - { role: nodejs, tags: nodejs, become: yes }
+    - { role: nginx, tags: nginx, become: yes }
+    - { role: ruby, tags: ruby, become: yes }
+    - { role: git_clone, tags: git_clone, become: yes }
     - { role: rails, tags: rails }
     - { role: database, tags: database }

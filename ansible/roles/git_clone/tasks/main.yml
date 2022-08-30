@@ -11,3 +11,6 @@
   git:
     repo: https://github.com/tomohiro-tanazawa/raisetech-live8-sample-app.git
     dest: /var/www/raisetech-live8-sample-app
+
+- name: chown recurse
+  shell: chown ec2-user:ec2-user -R /var/www/raisetech-live8-sample-app
