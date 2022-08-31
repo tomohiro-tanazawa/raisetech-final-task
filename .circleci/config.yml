@@ -56,7 +56,7 @@ jobs:
           version: 2.10.7
       - ansible-playbook/playbook:
           playbook: ansible/playbook.yml
-          playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa --tags="database"
+          playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa
 
 workflows:
   raisetech-task-final:
