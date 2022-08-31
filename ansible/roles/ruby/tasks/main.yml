@@ -1,8 +1,8 @@
 ---
 - name: Install Ruby dependences packages
+  become: yes
   yum:
     name: "{{ dependences }}"
-    become: yes
   vars:
     dependences:
       - gcc-c++
