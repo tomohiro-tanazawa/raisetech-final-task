@@ -8,3 +8,4 @@
     - { role: ruby, tags: ruby }
     - { role: git_clone, tags: git_clone }
     - { role: rails, tags: rails }
+    - { role: database, tags: database }

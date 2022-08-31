@@ -1,0 +1,9 @@
+---
+- name: Import database.yml
+  vars:
+    vars_files: roles/database/vars/main.yml
+  template:
+    src: roles/database/templates/database.yml.j2
+    dest: /var/www/raisetech-live8-sample-app/config/database.yml
+    owner: ec2-user
+    group: ec2-user

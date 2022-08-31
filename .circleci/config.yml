@@ -1,9 +1,11 @@
 version: 2.1
+
+# jobs stepsの実行環境を定義
 executors:
   deploy_container:
     docker:
       - image: circleci/python:3.8.7
-    working_directory: ~/work
+    working_directory: /tmp
 
 orbs:
   aws-cli: circleci/aws-cli@3.1.1
@@ -27,12 +29,26 @@ jobs:
             aws cloudformation deploy --stack-name RDSSecurityGroupStackFromCircleCI --template-file cloudformation/RDSSG_template.yml
             aws cloudformation deploy --stack-name EC2andS3StackFromCircleCI --template-file cloudformation/EC2_S3_template.yml          
             aws cloudformation deploy --stack-name RDSStackFromCircleCI --template-file cloudformation/RDS_template.yml
-            aws cloudformation deploy --stack-name ALBFromCircleCI --template-file cloudformation/ALB_template.yml
           no_output_timeout: 15m
+      
+      - run: mkdir -p workspace
+      - run:
+          command: |
+            var1=$(aws cloudformation describe-stacks --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)
+            echo "rds_endpoint: ${var1}" > workspace/rds-output.yml
+
+      - persist_to_workspace: # workspaceを作成
+          root: workspace # 絶対パスまたはworking_directoryからの相対パスを記述
+          paths: 
+            - rds-output.yml # 上記rootからの相対パスを記述
+      
   execute-ansible:
     executor: ansible-playbook/default
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace # 絶対パスまたはworking_directoryからの相対パスを記述
+      - run: cp /tmp/workspace/rds-output.yml ~/project/ansible/roles/database/vars/main.yml
       - add_ssh_keys:
           fingerprints:
             - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0""
@@ -40,12 +56,7 @@ jobs:
           version: 2.10.7
       - ansible-playbook/playbook:
           playbook: ansible/playbook.yml
-          playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa --tags="rails","nginx"
-  
-
-
-
-
+          playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa --tags="database"
 
 workflows:
   raisetech-task-final:
