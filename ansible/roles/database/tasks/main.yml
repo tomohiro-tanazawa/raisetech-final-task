@@ -10,5 +10,5 @@
 
 - name: Rails db:migrate
   shell: bash -lc "bin/rails db:migrate RAILS_ENV{{'='}}production"
-    args: 
-      chdir: /var/www/raisetech-live8-sample-app
+  args: 
+    chdir: /var/www/raisetech-live8-sample-app
