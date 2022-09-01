@@ -40,13 +40,3 @@
   args: 
     chdir: /var/www/raisetech-live8-sample-app
 
-- name: Set up custom environment variable "RDS_ENDPOINT"
-  shell: |
-    rds_endpoint = '$(aws cloudformation describe-stacks --region ap-northeast-1 --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)'
-    echo 'export RDS_ENDPOINT = "${rds_endpoint}"' >> $BASH_ENV
-
-- name: Import database.yml
-  template:
-    src: rokes/rails/templates/database.yml.j2
-    dest: /var/www/raisetech-live8-sample-app/config/database.yml.j2
-
