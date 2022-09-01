@@ -22,6 +22,7 @@
     state: latest
 
 - name: Install rbenv
+  become: yes
   git:
     repo: "{{ rbenv_download_url }}"
     dest: /usr/local/rbenv
