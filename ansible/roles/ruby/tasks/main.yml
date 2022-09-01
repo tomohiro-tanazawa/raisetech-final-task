@@ -35,6 +35,7 @@
     group: ec2-user
 
 - name: Install ruby_build
+  become: yes
   git:
     repo: "{{ ruby_build_download_url }}"
     dest: /usr/local/rbenv/plugins/ruby-build
