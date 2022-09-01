@@ -44,4 +44,5 @@
   shell: bash -lc "rbenv install -s {{ ruby_version }}"
 
 - name: set global ruby version
+  become: yes
   shell: bash -lc "rbenv global {{ ruby_version }} && rbenv rehash"
