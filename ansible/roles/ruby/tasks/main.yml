@@ -5,7 +5,7 @@
     name: "{{ dependences }}"
   vars:
     dependences:
-      - gcc-c++ 
+      - gcc-c++
       - glibc-headers
       - openssl-devel
       - readline
