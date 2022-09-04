@@ -11,7 +11,8 @@
       - readline
       - libyaml-devel
       - readline-devel
-      - zlib zlib-devel
+      - zlib
+      - zlib-devel
       - libffi-devel
       - libxml2
       - libxslt
