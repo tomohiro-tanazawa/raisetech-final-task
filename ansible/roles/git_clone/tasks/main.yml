@@ -1,5 +1,6 @@
 ---
 - name: Make a directory for Rails app
+  become: yes
   file:
     path: /var/www/raisetech-live8-sample-app
     state: directory
