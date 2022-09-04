@@ -50,7 +50,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/workspace # 絶対パスまたはworking_directoryからの相対パスを記述
-      - run: 
+      - run: |
           cp /tmp/workspace/rds-output.yml ~/project/ansible/roles/database/vars/main.yml
           cp /tmp/workspace/master_key.yml ~/project/ansible/roles/rails/vars/main.yml
       - add_ssh_keys:
