@@ -1,6 +1,5 @@
 ---
 - hosts: ec2
-  become: yes
   roles:
     - { role: git, tags: git, become: yes }
     - { role: nodejs, tags: nodejs, become: yes }

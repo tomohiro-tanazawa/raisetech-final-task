@@ -5,44 +5,39 @@
     name: "{{ dependences }}"
   vars:
     dependences:
-      - gcc-c++
-      - patch
+      - gcc-c++ 
+      - glibc-headers
       - openssl-devel
+      - readline
       - libyaml-devel
+      - readline-devel
+      - zlib zlib-devel
       - libffi-devel
-      - libicu-devel
       - libxml2
       - libxslt
       - libxml2-devel
       - libxslt-devel
-      - zlib-devel
-      - readline-devel
-      - ImageMagick
-      - ImageMagick-devel
     state: latest
 
+  #rbenvをhomeディレクトリにインストール
 - name: Install rbenv
-  become: yes
   git:
     repo: "{{ rbenv_download_url }}"
-    dest: /usr/local/rbenv
+    dest: ~/.rbenv
 
-- name: Edit bashrc
-  template:
-    src: roles/ruby/templates/rbenv_system.sh.j2
-    dest: /etc/profile.d/rbenv.sh
-    owner: ec2-user
-    group: ec2-user
+- name: Edit bash_profile
+  shell: |
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+    echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+    source ~/.bash_profile
 
 - name: Install ruby_build
-  become: yes
   git:
     repo: "{{ ruby_build_download_url }}"
-    dest: /usr/local/rbenv/plugins/ruby-build
+    dest: ~/.rbenv/plugins/ruby-build
 
 - name: Install ruby
   shell: bash -lc "rbenv install -s {{ ruby_version }}"
 
 - name: set global ruby version
-  become: yes
   shell: bash -lc "rbenv global {{ ruby_version }} && rbenv rehash"
