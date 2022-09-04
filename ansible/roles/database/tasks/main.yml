@@ -9,6 +9,6 @@
     group: ec2-user
 
 - name: Rails db:migrate
-  shell: bash -lc "bin/rails db:migrate RAILS_ENV{{'='}}production"
+  shell: bash -lc "bundle exec rails db:migrate RAILS_ENV{{'='}}production"
   args: 
     chdir: /var/www/raisetech-live8-sample-app
