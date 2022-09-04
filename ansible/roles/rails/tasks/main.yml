@@ -12,25 +12,30 @@
 # mysqlをインストールする際にGPGキーが必要となる。
 # これをrpm_keyモジュールを使用してインポートする。
 - name: Import RPM-GPG-KEY-mysql-2022
+  become: yes
   rpm_key: 
     key: "https://repo.mysql.com/RPM-GPG-KEY-mysql-2022"
 
 - name: Install mysql
+  become: yes
   yum:
     name: mysql
     state: latest
 
 - name: Install mysql
+  become: yes
   yum:
     name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
     state: latest
 
 - name: Install mysql-community-devel
+  become: yes
   yum:
     name: mysql-community-devel
     state: latest
 
 - name: Install mysql-community-server
+  become: yes
   yum:
     name: mysql-community-server
     state: latest
