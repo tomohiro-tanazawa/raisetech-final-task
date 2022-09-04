@@ -48,7 +48,7 @@
 - name: Embed config/master.key
   vars:
     vars_files: roles/database/rails/vars/main.yml
-  shell: echo {{ master_key }} >> config/master.key
+  shell: echo {{ master_key }} > config/master.key
   args:
     chdir: /var/www/raisetech-live8-sample-app
 
