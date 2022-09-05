@@ -20,25 +20,25 @@
   become: yes
   yum:
     name: mysql
-    state: latest
+    state: present
 
 - name: Install mysql
   become: yes
   yum:
     name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-    state: latest
+    state: present
 
 - name: Install mysql-community-devel
   become: yes
   yum:
     name: mysql-community-devel
-    state: latest
+    state: present
 
 - name: Install mysql-community-server
   become: yes
   yum:
     name: mysql-community-server
-    state: latest
+    state: present
 
 - name: bundle install
   shell: bash -lc "bundle install"
