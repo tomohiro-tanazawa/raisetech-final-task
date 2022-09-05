@@ -3,3 +3,4 @@
   yum:
     name: git
     state: present
+    force: true
