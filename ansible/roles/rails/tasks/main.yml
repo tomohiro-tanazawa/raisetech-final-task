@@ -12,41 +12,43 @@
 # mysqlをインストールする際にGPGキーが必要となる。
 # これをrpm_keyモジュールを使用してインポートする。
 - name: Import RPM-GPG-KEY-mysql-2022
+  become: yes
   rpm_key: 
     key: "https://repo.mysql.com/RPM-GPG-KEY-mysql-2022"
 
 - name: Install mysql
+  become: yes
   yum:
     name: mysql
-    state: latest
+    state: present
 
 - name: Install mysql
+  become: yes
   yum:
     name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-    state: latest
+    state: present
 
 - name: Install mysql-community-devel
+  become: yes
   yum:
     name: mysql-community-devel
-    state: latest
+    state: present
 
 - name: Install mysql-community-server
+  become: yes
   yum:
     name: mysql-community-server
-    state: latest
+    state: present
 
 - name: bundle install
   shell: bash -lc "bundle install"
   args: 
     chdir: /var/www/raisetech-live8-sample-app
 
-- name: Set up custom environment variable "RDS_ENDPOINT"
-  shell: |
-    rds_endpoint = '$(aws cloudformation describe-stacks --region ap-northeast-1 --stack-name RDSStackFromCircleCI --query "Stacks[].Outputs[].[OutputValue]" --output text)'
-    echo 'export RDS_ENDPOINT = "${rds_endpoint}"' >> $BASH_ENV
-
-- name: Import database.yml
-  template:
-    src: rokes/rails/templates/database.yml.j2
-    dest: /var/www/raisetech-live8-sample-app/config/database.yml.j2
+- name: Embed config/master.key
+  vars:
+    vars_files: roles/database/rails/vars/main.yml
+  shell: echo {{ master_key }} > config/master.key
+  args:
+    chdir: /var/www/raisetech-live8-sample-app
 

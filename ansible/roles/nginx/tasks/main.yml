@@ -1,7 +1,7 @@
 - name: Install yum-utils
   yum:
     name: yum-utils
-    state: latest
+    state: present
 
 - name: Create Nginx repo
   template:
@@ -11,7 +11,7 @@
 - name: Install Nginx
   yum:
     name: nginx
-    state: latest
+    state: present
 
 - name: "Create /etc/nginx/conf.d/raisetech-live8-sample-app.conf"
   vars:
