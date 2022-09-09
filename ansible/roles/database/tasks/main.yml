@@ -12,8 +12,3 @@
   shell: bash -lc "bundle exec rails db:create RAILS_ENV{{'='}}production"
   args: 
     chdir: /var/www/raisetech-live8-sample-app
-
-- name: bundle exec rails db:migrate RAILS_ENV=production
-  shell: bash -lc "bundle exec rails db:migrate RAILS_ENV{{'='}}production"
-  args: 
-    chdir: /var/www/raisetech-live8-sample-app

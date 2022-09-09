@@ -51,14 +51,3 @@
   shell: echo {{ master_key }} > config/master.key
   args:
     chdir: /var/www/raisetech-live8-sample-app
-
-# conflictを避けるため、デフォルトのwebpacker.ymlを削除
-- name: delete config/webpacker.yml
-  file:
-    path: config/webpacker.yml
-    state: absent
-
-- name: Install config/webpacker.yml
-  shell: bash -lc "bundle exec rails webpacker:install RAILS_ENV{{'='}}production"
-  args: 
-    chdir: /var/www/raisetech-live8-sample-app

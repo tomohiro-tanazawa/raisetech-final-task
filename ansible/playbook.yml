@@ -5,7 +5,8 @@
     - { role: nodejs, tags: nodejs, become: yes }
     - { role: nginx, tags: nginx, become: yes }
     - { role: ruby, tags: ruby }
-    - { role: yarn, tags: yarn }
     - { role: git_clone, tags: git_clone }
     - { role: rails, tags: rails }
     - { role: database, tags: database }
+    - { role: yarn, tags: yarn }
+    - { role: webpacker, tags: webpacker }
