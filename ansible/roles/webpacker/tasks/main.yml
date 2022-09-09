@@ -1,0 +1,27 @@
+# config/webpacker.ymlが既に存在するため、conflictが生じる。
+# 以下は対話が生じることを想定し、expectモジュールを使用する例。
+#    conflict  config/webpacker.yml
+# Overwrite /var/www/raisetech-live8-sample-app/config/webpacker.yml? (enter "h" for help) [Ynaqdhm]
+# "^Overwrite .*"に一致する文字列で入力待ち状態になったら"n""と入力してEnter
+# - name: Install webpacker
+#   expect:
+#     command: bundle exec rails webpacker:install RAILS_ENV{{'='}}production"
+#     chdir: /var/www/raisetech-live8-sample-app
+#     responses:
+#       "^Overwrite .*": "n"
+
+# conflictを避けるため、webpacker.ymlを削除
+- name: Remove config/webpacker.yml
+  file:
+    path: /var/www/raisetech-live8-sample-app/config/webpacker.yml
+    state: absent
+
+- name: RAILS_ENV=production bundle exec rails webpacker:install
+  shell: bash -lc "bundle exec rails webpacker:install RAILS_ENV{{'='}}production"
+  args: 
+    chdir: /var/www/raisetech-live8-sample-app
+
+- name: download webpacker.yml from github repogitory
+  shell: bash -lc "curl https://raw.githubusercontent.com/tomohiro-tanazawa/raisetech-live8-sample-app/main/config/webpacker.yml > config/webpacker.yml"
+  args: 
+    chdir: /var/www/raisetech-live8-sample-app

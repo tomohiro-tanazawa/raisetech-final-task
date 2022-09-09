@@ -51,4 +51,3 @@
   shell: echo {{ master_key }} > config/master.key
   args:
     chdir: /var/www/raisetech-live8-sample-app
-
