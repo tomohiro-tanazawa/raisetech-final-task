@@ -16,12 +16,19 @@
     path: /var/www/raisetech-live8-sample-app/config/webpacker.yml
     state: absent
 
+# webpackerをインストール
 - name: RAILS_ENV=production bundle exec rails webpacker:install
   shell: bash -lc "bundle exec rails webpacker:install RAILS_ENV{{'='}}production"
   args: 
     chdir: /var/www/raisetech-live8-sample-app
 
+# Githubのリポジトリに用意したwebpacker.ymlの内容を上書きする
 - name: download webpacker.yml from github repogitory
   shell: bash -lc "curl https://raw.githubusercontent.com/tomohiro-tanazawa/raisetech-live8-sample-app/main/config/webpacker.yml > config/webpacker.yml"
+  args: 
+    chdir: /var/www/raisetech-live8-sample-app
+
+- name: bundle exec rails assets:precompile RAILS_ENV=production
+  shell: bash -lc "bundle exec rails assets:precompile RAILS_ENV{{'='}}production"
   args: 
     chdir: /var/www/raisetech-live8-sample-app
