@@ -1,0 +1,6 @@
+---
+- name:
+  become: yes
+  yum:
+    name: ImageMagick
+    state: present
