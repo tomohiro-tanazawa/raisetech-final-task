@@ -1,18 +1,43 @@
+client_max_body_size 2G;
+
 upstream unicorn {
-  server unix:/tmp/unicorn.sock;
+  server unix:/var/www/raisetech-live8-sample-app/tmp/unicorn.sock;
 }
 
 server {
   listen 80;
   server_name {{ ansible_host }};
+  keepalive_timeout 5;
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+  root /var/www/raisetech-live8-sample-app/public;
 
-  access_log /var/log/nginx/sample_access.log;
-  error_log /var/log/nginx/sample_error.log;
+  location ^~ /assets/ {
+    gzip_static on;
+    add_header Cache-Control public;
+  }
 
-  location / {
-    proxy_set_header X-Real-IP $remote_addr;
+  try_files $uri/index.html $uri @unicorn;
+
+  location @unicorn {
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
+    proxy_redirect off;
     proxy_pass http://unicorn;
   }
+
+  error_page 500 502 503 504 /500.html;
+  location = /500.html {
+  }
+
+  location = /sitemap.xml.gz {
+  }
+
+  location = /robots.txt {
+  }
+
+  location = /favicon.ico {
+  }
 }
+Footer
