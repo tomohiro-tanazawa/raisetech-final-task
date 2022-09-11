@@ -4,6 +4,7 @@
     - { role: git, tags: git, become: yes }
     - { role: nodejs, tags: nodejs, become: yes }
     - { role: nginx, tags: nginx, become: yes }
+    - { role: imagemagick, tags: imagemagick, become: yes }
     - { role: ruby, tags: ruby }
     - { role: git_clone, tags: git_clone }
     - { role: rails, tags: rails }
