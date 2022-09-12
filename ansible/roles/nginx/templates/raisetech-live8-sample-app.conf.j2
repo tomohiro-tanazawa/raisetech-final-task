@@ -11,13 +11,14 @@ server {
   access_log /var/log/nginx/access.log;
   error_log /var/log/nginx/error.log;
   root /var/www/raisetech-live8-sample-app/public;
+  try_files $uri/index.html $uri @unicorn; #追記
 
   location ^~ /assets/ {
     gzip_static on;
     add_header Cache-Control public;
   }
 
-  try_files $uri/index.html $uri @unicorn;
+  #try_files $uri/index.html $uri @unicorn; #コメントアウト
 
   location @unicorn {
     proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
