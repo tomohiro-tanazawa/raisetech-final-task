@@ -1,0 +1,22 @@
+- name: Execute reboot
+  become: yes
+  shell:
+    cmd: 'sleep 2 && reboot'
+  async: 1
+  poll: 0
+
+- name: Wait for SSH port down
+  become: no
+  wait_for:
+    host: '{{ inventory_hostname }}'
+    port: 22
+    state: stopped
+  delegate_to: 127.0.0.1
+
+- name: Wait for SSH port up
+  become: no
+  wait_for:
+    host: '{{ inventory_hostname }}'
+    port: 22
+    state: started
+  delegate_to: 127.0.0.1
