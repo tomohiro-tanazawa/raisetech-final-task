@@ -1,0 +1,13 @@
+- name: unicorn.servise -> /etc/systemd/system
+  become: yes
+  template:
+    src: roles/autostart_unicorn/templates/unicorn.servise.j2 
+    dest: /etc/systemd/system/unicorn.service
+
+- name: Autostart unicorn
+  become: yes
+  shell: bash -lc "systemctl enable unicorn.service"
+
+# unicornの自動起動設定後にunicornを起動したいため、サーバ再起動TASKを別途組み込む
+# - name: Start unicorn
+#   shell: bash -lc "bundle exec unicorn_rails -c config/unicorn.rb -E production"

@@ -11,3 +11,4 @@
     - { role: database, tags: database }
     - { role: yarn, tags: yarn, become: yes }
     - { role: webpacker, tags: webpacker }
+    - { role: autostart_unicorn, tags: autostart_unicorn }
