@@ -20,5 +20,12 @@
     src: roles/nginx/templates/raisetech-live8-sample-app.conf.j2
     dest: /etc/nginx/conf.d/raisetech-live8-sample-app.conf
 
+# default.confの拡張子を変更
+- name: Move default.conf default.conf.backup
+  command: mv /etc/nginx/conf.d/raisetech-live8-sample-app.conf /etc/nginx/conf.d/raisetech-live8-sample-app.conf.backup
+
 - name: Auto start Nginx
   shell: bash -lc "systemctl enable nginx.service"
+
+- name: Restart Nginx
+  shell: bash -lc "sudo systemctl restart nginx.service"
