@@ -20,6 +20,12 @@
     src: roles/nginx/templates/raisetech-live8-sample-app.conf.j2
     dest: /etc/nginx/conf.d/raisetech-live8-sample-app.conf
 
+- name: "rm /etc/nginx/conf.d/default.conf"
+  become: yes
+  file:
+    path: /etc/nginx/conf.d/default.conf
+    state: absent
+
 - name: Auto start Nginx
   shell: bash -lc "systemctl enable nginx.service"
 

@@ -1,5 +1,5 @@
 ---
-- name:
+- name: Install ImageMagick
   become: yes
   yum:
     name: ImageMagick
