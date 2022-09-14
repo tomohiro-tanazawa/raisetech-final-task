@@ -77,12 +77,12 @@ jobs:
       - run:
           name: edit ~/.ssh/config
           command: | 
-            cd serverspec/spec/
+            cd serverspec
             cat ssh_config_for_circleci > ~/.ssh/config
       - run:
           name: execute serverspec
           command: |
-            cd serverspec/spec/
+            cd serverspec
             rake spec
 
 
