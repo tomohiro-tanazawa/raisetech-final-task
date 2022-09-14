@@ -90,7 +90,7 @@ workflows:
       - execute-ansible:
           requires:
             - "execute-cloudformation"
-      - execute_serverspec:
+      - execute-serverspec:
           requires:
             - execute-cloudformation
             - execute-ansible
