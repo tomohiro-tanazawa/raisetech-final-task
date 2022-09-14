@@ -56,12 +56,35 @@ jobs:
           cp /tmp/workspace/master_key.yml ~/project/ansible/roles/rails/vars/main.yml
       - add_ssh_keys:
           fingerprints:
-            - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0""
+            - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0
       - ansible-playbook/install:
           version: 2.10.7
       - ansible-playbook/playbook:
           playbook: ansible/playbook.yml
           playbook-options: -u ec2-user -i ansible/inventory --private-key ~/.ssh/id_rsa
+
+  execute-serverspec
+    docker:
+      - image: circleci/ruby:2.4
+    environment:
+      - AWS_REGION: ap-northeast-1
+    steps:
+      - checkout
+      - run:
+          name: install serverspec
+          command: |
+              sudo gem install -y serverspec
+      - add_ssh_keys:
+          fingerprints:
+            - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0
+      - run:
+          name: Test
+          command: |
+            cd serverspec/spec/
+            bundle exec rake spec
+
+
+
 
 workflows:
   raisetech-task-final:
