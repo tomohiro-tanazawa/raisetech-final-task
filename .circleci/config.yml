@@ -70,7 +70,7 @@ jobs:
       - checkout
       - run:
           name: install serverspec
-          command: sudo gem install -y serverspec
+          command: sudo gem install serverspec
       - add_ssh_keys:
           fingerprints:
             - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0
