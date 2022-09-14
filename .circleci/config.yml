@@ -65,7 +65,7 @@ jobs:
 
   execute-serverspec:
     docker:
-      - image: circleci/ruby:3.1.4
+      - image: circleci/ruby:3.1.2
     steps:
       - checkout
       - run:
