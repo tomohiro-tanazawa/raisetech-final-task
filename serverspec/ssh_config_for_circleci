@@ -1,0 +1,14 @@
+Host 3.115.185.117
+  HostName 3.115.185.117
+  Port 22
+  User ec2-user
+  IdentityFile ~/.ssh/id_rsa
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+Host 35.79.238.169
+  HostName 35.79.238.169
+  Port 22
+  User ec2-user
+  IdentityFile ~/.ssh/id_rsa
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null

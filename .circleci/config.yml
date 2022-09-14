@@ -75,10 +75,16 @@ jobs:
           fingerprints:
             - 7f:fc:97:1b:2f:8c:d6:53:e5:02:ef:35:c9:3d:c2:e0
       - run:
-          name: Test
+          name: edit ~/.ssh/config
+          command: | 
+            cd serverspec/spec/
+            cat ssh_config_for_circleci > ~/.ssh/config
+      - run:
+          name: execute serverspec
           command: |
             cd serverspec/spec/
             rake spec
+
 
 
 
