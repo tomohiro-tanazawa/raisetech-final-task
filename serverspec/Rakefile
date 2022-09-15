@@ -8,11 +8,11 @@ require 'rspec/core/rake_task'
 hosts = [
   {
     :name  => '3.115.185.117',
-    :roles => %w( base proxy ),
+    # :roles => %w( base proxy ),
   },
   {
     :name  => '5.79.238.169',
-    :roles => %w( base proxy ),
+    # :roles => %w( base proxy ),
   },
 ]
 
@@ -20,7 +20,7 @@ hosts = hosts.map do |host|
   {
     :name       => host[:name],
     :short_name => host[:name].split('.')[0],
-    :roles      => host[:roles],
+    # :roles      => host[:roles],
   }
 end
 
@@ -33,7 +33,7 @@ namespace :serverspec do
     desc "Run serverspec to #{host[:name]}"
     RSpec::Core::RakeTask.new(host[:short_name].to_sym) do |t|
       ENV['TARGET_HOST'] = host[:name]
-      t.pattern = 'spec/{' + host[:roles].join(',') + '}/*_spec.rb'
+      # t.pattern = 'spec/{' + host[:roles].join(',') + '}/*_spec.rb'
     end
   end
 end
