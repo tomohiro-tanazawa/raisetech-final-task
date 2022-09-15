@@ -2,8 +2,8 @@ require 'rake'
 require 'rspec/core/rake_task'
 
 hosts = [
-  { :name => '3.115.185.117', :roles => 'all' },
-  { :name => '35.79.238.169', :roles => 'all' },
+  { :name => '3.115.185.117', :roles => all },
+  { :name => '35.79.238.169', :roles => all },
 ]
 
 hosts = hosts.map do |host|
