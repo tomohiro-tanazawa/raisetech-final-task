@@ -7,30 +7,15 @@ require 'rspec/core/rake_task'
 # ]
 hosts = [
   {
-    :name  => 'proxy001.example.jp',
+    :name  => '3.115.185.117',
     :roles => %w( base proxy ),
   },
   {
-    :name  => 'proxy002.example.jp',
+    :name  => '5.79.238.169',
     :roles => %w( base proxy ),
-  },
-  {
-    :name  => 'app001.example.jp',
-    :roles => %w( base app ),
-  },
-  {
-    :name  => 'app002.example.jp',
-    :roles => %w( base app ),
-  },
-  {
-    :name  => 'db001.example.jp',
-    :roles => %w( base db ),
-  },
-  {
-    :name  => 'db002.example.jp',
-    :roles => %w( base db ),
   },
 ]
+
 hosts = hosts.map do |host|
   {
     :name       => host[:name],
