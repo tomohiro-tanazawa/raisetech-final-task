@@ -2,7 +2,7 @@ require 'rake'
 require 'rspec/core/rake_task'
 require 'yaml'
 
-attributes = YAML.load_file('hosts'.yml')
+attributes = YAML.load_file('hosts.yml')
 
 desc "Run serverspec to all hosts (=serverspec:all)"
 task :spec => 'serverspec:all'
