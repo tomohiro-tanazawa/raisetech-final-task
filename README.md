@@ -1,5 +1,5 @@
-# Raisetech 最終課題
-* CircleCIで以下のWorkflowを実行
+# 概要
+* CircleCIで以下のWorkflowを実行する
 
 # Workflow
 1. リポジトリにコードをpush
@@ -10,3 +10,5 @@
 ```
 Ansible version 2.13.2
 ```
+
+# 構成図
