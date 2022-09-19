@@ -22,12 +22,14 @@ Ansible version 2.13.2
 * MASTER_KEY
   * Railsアプリケーション用
 
-### CloudFormation
+### その他パラメータ
 * cloudformation/EC2_S3_template.yml
   * KeyName
   * EIP
 
 * serverspec/ssh_config_for_circleci
+ * Serverspecを実行するDockerコンテナ内の、~/.ssh/configを上書きする。テスト対象のIPをここに書く。
+ 
 ```
 Host instanceA
   HostName xxx.xxx.xxx.xxx
