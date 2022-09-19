@@ -12,3 +12,5 @@ Ansible version 2.13.2
 ```
 
 # 構成図
+<img width=50%  src="https://user-images.githubusercontent.com/75251188/190943157-e7bb4213-7224-4616-8aa1-ff5ba324e1c2.png">
+
